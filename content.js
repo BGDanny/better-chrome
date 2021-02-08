@@ -32,8 +32,19 @@ for (let i = 0; i < links.length; i++) {
 const button_up = document.createElement("div");
 button_up.append("\u23EB");
 button_up.setAttribute("style", "position:fixed;bottom:100px;right:100px;cursor: pointer;font-size:60px;")
-document.addEventListener("scroll", function () { document.documentElement.appendChild(button_up); });
-
+const cancel_button = document.createElement("button");
+cancel_button.append("X");
+cancel_button.setAttribute("style", "position:fixed;bottom:165px;right:90px;border-radius:50%;cursor:pointer;");
+cancel_button.setAttribute("id", "cancel");
+document.addEventListener("scroll", function () {
+    document.documentElement.appendChild(button_up);
+    document.documentElement.appendChild(cancel_button);
+});
 button_up.addEventListener("click", function () {
     window.scrollTo(0, 0);
 });
+cancel_button.addEventListener("click", function () {
+    button_up.remove();
+    cancel_button.remove();
+})
+

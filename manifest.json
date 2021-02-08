@@ -12,6 +12,9 @@
             "js": [
                 "content.js"
             ],
+            "css": [
+                "cool.css"
+            ],
             "exclude_matches": []
         }
     ],
