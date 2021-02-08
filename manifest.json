@@ -18,10 +18,14 @@
             "exclude_matches": []
         }
     ],
+    "background": {
+        "service_worker": "background.js"
+    },
     "permissions": [
         "storage",
         "activeTab",
-        "scripting"
+        "scripting",
+        "contextMenus"
     ],
     "action": {
         "default_popup": "popup.html",
@@ -33,5 +37,14 @@
     "icons": {
         "16": "/images/d16.png",
         "128": "/images/d128.png"
+    },
+    "commands": {
+        "toggle-feature": {
+            "suggested_key": {
+                "windows": "Ctrl+Shift+Y",
+                "mac": "MacCtrl+Shift+Y"
+            },
+            "description": "trigger the content script"
+        }
     }
 }
