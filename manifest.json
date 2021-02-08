@@ -10,7 +10,24 @@
             ],
             "js": [
                 "content.js"
-            ]
+            ],
+            "exclude_matches": []
         }
-    ]
+    ],
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/d16.png",
+            "128": "/images/d128.png"
+        }
+    },
+    "icons": {
+        "16": "/images/d16.png",
+        "128": "/images/d128.png"
+    }
 }
