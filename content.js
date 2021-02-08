@@ -1,3 +1,4 @@
+//display lightning icon when hovering over link, click to open the link in a new tab
 let links = document.querySelectorAll("a");
 let show_icon = false;
 const div = document.createElement("div");
@@ -27,3 +28,12 @@ for (let i = 0; i < links.length; i++) {
         }
     })
 }
+//a button for scrolling up to the top
+const button_up = document.createElement("div");
+button_up.append("\u23EB");
+button_up.setAttribute("style", "position:fixed;bottom:100px;right:100px;cursor: pointer;font-size:60px;")
+document.addEventListener("scroll", function () { document.documentElement.appendChild(button_up); });
+
+button_up.addEventListener("click", function () {
+    window.scrollTo(0, 0);
+});
