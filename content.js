@@ -1,4 +1,4 @@
-let links = document.getElementsByTagName("a");
+let links = document.querySelectorAll("a");
 let show_icon = false;
 const div = document.createElement("div");
 const href = document.createElement("a");
@@ -7,7 +7,7 @@ href.append("\u26A1");
 for (let i = 0; i < links.length; i++) {
     links[i].addEventListener("mouseenter", function (event) {
         if (show_icon) {
-            document.documentElement.removeChild(div);
+            div.remove();
             show_icon = false;
         }
         div.setAttribute("style", `position:fixed;z-index:1;top:${event.clientY - 20}px;left:${event.clientX + 20}px;width:80px;height:80px;font-size:20px;`);
