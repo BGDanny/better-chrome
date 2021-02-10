@@ -13,7 +13,7 @@ for (let i = 0; i < links.length; i++) {
             div.remove();
             show_icon = false;
         }
-        div.setAttribute("style", `position:fixed;z-index:1;top:${event.clientY - 30}px;left:${event.clientX + 30}px;font-size:30px;`);
+        div.setAttribute("style", `position:fixed;z-index:1;top:${event.clientY - 20}px;left:${event.clientX + 20}px;font-size:30px;`);
         href.setAttribute("href", links[i].getAttribute("href"));
         div.appendChild(href);
         document.documentElement.appendChild(div);
@@ -49,5 +49,12 @@ cancel_button.addEventListener("click", function () {
     button_up.remove();
     cancel_button.remove();
 })
+//remove google ads
+const ads1 = document.getElementById("taw");
+if (ads1) {
+    ads1.remove();
+}
+
+
 
 
