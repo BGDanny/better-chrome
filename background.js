@@ -22,3 +22,14 @@ function execute() {
         });
     });
 }
+// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+//     // console.log(sender.tab ?
+//     //     "from a content script:" + sender.tab.url :
+//     //     "from the extension");
+//     if (request.ad === "removeAds") {
+//         chrome.scripting.insertCSS({
+//             target: {sender.tab.id},
+// files:[""]
+//         });
+//     }
+// });

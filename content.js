@@ -51,10 +51,7 @@ cancel_button.addEventListener("click", function () {
 })
 //remove google ads
 const ads1 = document.getElementById("taw");
-if (ads1) {
+if (ads1 && document.URL.indexOf("google")) {
     ads1.remove();
 }
-
-
-
-
+chrome.runtime.sendMessage({ ad: "removeAds" });

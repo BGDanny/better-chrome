@@ -4,3 +4,6 @@
 #lightning:hover{
     background-color:aquamarine;
 }
+#yhostedframeidlongname{
+    display:none !important;
+}
