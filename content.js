@@ -38,7 +38,7 @@
     button_up.setAttribute("style", "position:fixed;bottom:100px;right:100px;cursor: pointer;font-size:60px;z-index:1;opacity:0.5;")
     const cancel_button = document.createElement("button");
     cancel_button.append("X");
-    cancel_button.setAttribute("style", "position:fixed;bottom:165px;right:90px;border-radius:50%;cursor:pointer;z-index:1;");
+    cancel_button.setAttribute("style", "position:fixed;bottom:165px;right:90px;border-radius:50%;cursor:pointer;z-index:1;opacity:0.5;");
     cancel_button.setAttribute("id", "cancel");
     document.addEventListener("scroll", function () {
         document.documentElement.appendChild(button_up);
@@ -58,17 +58,25 @@
     if (ads1 && document.URL.indexOf("google")) {
         ads1.remove();
     }
-    //double click to close the current tab
-    document.addEventListener("dblclick", function () {
-        chrome.runtime.sendMessage({ close: "true" });
-    });
-    // const video = document.getElementsByTagName("video");
-    // for (let i = 0; i < video.length; i++) {
-    //     video[i].addEventListener("playing", function () {
-    //         if (!video[i].muted) {
-    //             console.log("hi");
-    //         }
+    //pause previous video when a new video is played
+    const video = document.querySelectorAll("video");
 
-    //     });
-    // }
+    for (let i = 0; i < video.length; i++) {
+        video[i].addEventListener("playing", function () {
+            if (!video[i].muted) {
+                console.log("playing");
+                chrome.runtime.sendMessage({ video: "playing", id: i });
+            }
+
+        });
+        // video[i].addEventListener("ended", function () {
+        //     chrome.runtime.sendMessage({ video: "ended", id: i });
+        // })
+    }
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+        if (request.pause === "true") {
+            console.log(request.id);
+            video[request.id].pause();
+        }
+    })
 })();
