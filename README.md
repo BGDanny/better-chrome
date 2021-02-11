@@ -4,7 +4,7 @@ A chrome extension to improve user experience and interaction with Google Chrome
 
 ## Features
 
-Open link in new tab; Scroll to top button; Remove google ads
+Open link in new tab; Scroll to top button; Remove google ads; Auto pause a video when another starts to play
 
 ## Installation
 
