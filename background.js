@@ -1,12 +1,17 @@
 (function () {
     "use strict";
+    let tab_playing = [];
+    let video_playing = [];
     chrome.runtime.onInstalled.addListener(function () {
         let contextMenuItem = {
             "id": "BetterChrome",
             "title": "BetterChrome"
         };
         chrome.contextMenus.create(contextMenuItem);
+        tab_playing = [];
+        video_playing = [];
     })
+
 
     chrome.contextMenus.onClicked.addListener(function (clickData) {
         if (clickData.menuItemId === "BetterChrome") {
@@ -35,13 +40,12 @@
     //         });
     //     }
     // });
-    let tab_playing = [];
-    let video_playing = [];
+
+
     chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (request.video === "playing") {
             tab_playing.push(sender.tab.id);
             video_playing.push(request.id);
-            console.log(tab_playing[tab_playing.length - 1]);
             if (tab_playing.length > 1 && sender.tab.id === tab_playing[tab_playing.length - 2] && request.id === video_playing[tab_playing.length - 2]) {
                 tab_playing.pop();
                 video_playing.pop();
@@ -68,5 +72,11 @@
             index = tab_playing.indexOf(tabId);
         }
     });
+
+    chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tabInfo) {
+        console.log(tabId);
+        console.log(changeInfo);
+        console.log(tabInfo);
+    })
 
 })();
