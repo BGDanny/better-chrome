@@ -23,10 +23,14 @@
     },
     "permissions": [
         "storage",
-        "activeTab",
         "scripting",
         "contextMenus",
-        "notifications"
+        "notifications",
+        "webNavigation",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "<all_urls>"
     ],
     "action": {
         "default_popup": "popup.html",

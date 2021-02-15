@@ -4,22 +4,25 @@
     let links = document.querySelectorAll("a");
     let show_icon = false;
     const div = document.createElement("div");
+    div.id = "div1";
     const href = document.createElement("a");
     href.setAttribute("target", "_blank");
     href.append("\u26A1");
     href.id = "lightning";
     href.setAttribute("style", "text-decoration:none;");
     for (let i = 0; i < links.length; i++) {
-        links[i].addEventListener("mouseenter", function (event) {
+        links[i].addEventListener("mouseenter", function () {
             if (show_icon) {
                 div.remove();
                 show_icon = false;
             }
             let rect = this.getBoundingClientRect();
-            div.setAttribute("style", `position:fixed;z-index:1;top:${rect.top - 5}px;left:${rect.right + 5}px;font-size:30px;`);
+            console.log(rect.top);
+            console.log(document.documentElement.scrollTop);
+            div.setAttribute("style", `position:absolute;z-index:1;top:${rect.top + document.documentElement.scrollTop}px;left:${rect.right - 5 + document.documentElement.scrollLeft}px;font-size:30px;`);
             href.setAttribute("href", this.getAttribute("href"));
             div.appendChild(href);
-            document.documentElement.appendChild(div);
+            document.body.appendChild(div);
             show_icon = true;
         });
         div.addEventListener("mouseleave", function () {
@@ -42,8 +45,14 @@
     cancel_button.setAttribute("style", "position:fixed;bottom:165px;right:90px;border-radius:50%;cursor:pointer;z-index:1;opacity:0.5;");
     cancel_button.setAttribute("id", "cancel");
     document.addEventListener("scroll", function () {
-        document.documentElement.appendChild(button_up);
-        document.documentElement.appendChild(cancel_button);
+        if (document.documentElement.scrollTop > 2000) {
+            document.documentElement.appendChild(button_up);
+            document.documentElement.appendChild(cancel_button);
+        }
+        else {
+            button_up.remove();
+            cancel_button.remove();
+        }
     });
     button_up.addEventListener("click", function () {
         window.scrollTo(0, 0);
@@ -75,9 +84,16 @@
         // })
     }
     chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-        if (request.pause === "true") {
+        if (request.pause === true) {
             console.log(request.id);
             video[request.id].pause();
         }
-    })
+    });
+
+    document.documentElement.addEventListener("auxclick", function (e) {
+        if (e.button === 1) {
+            chrome.runtime.sendMessage({ script: true });
+        }
+    });
+
 })();

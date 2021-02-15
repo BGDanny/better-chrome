@@ -18,9 +18,9 @@
             execute();
         }
     });
-    chrome.commands.onCommand.addListener(function () {
-        execute();
-    });
+    // chrome.commands.onCommand.addListener(function () {
+    //     execute();
+    // });
     function execute() {
         chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
             chrome.scripting.executeScript({
@@ -51,8 +51,14 @@
                 video_playing.pop();
             }
             if (tab_playing.length > 1) {
-                chrome.tabs.sendMessage(tab_playing[tab_playing.length - 2], { pause: "true", id: video_playing[tab_playing.length - 2] });
+                chrome.tabs.sendMessage(tab_playing[tab_playing.length - 2], { pause: true, id: video_playing[tab_playing.length - 2] });
             }
+        }
+        else if (request.script === true) {
+            chrome.scripting.executeScript({
+                target: { tabId: sender.tab.id },
+                files: ["contextmenu.js"]
+            });
         }
         // else if (request.video === "ended") {
         //     let index = tab_playing.indexOf(sender.tab.id);
@@ -73,10 +79,18 @@
         }
     });
 
-    chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tabInfo) {
-        console.log(tabId);
-        console.log(changeInfo);
-        console.log(tabInfo);
+    // chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tabInfo) {
+    //     console.log(tabId);
+    //     console.log(changeInfo);
+    //     console.log(tabInfo);
+    //     // chrome.scripting.executeScript({
+    //     //     target: { tabId: tabId },
+    //     //     files: ["contextmenu.js"]
+    //     // });
+    // });
+
+    chrome.webNavigation.onCompleted.addListener(function (details) {
+        console.log(details);
     })
 
 })();
