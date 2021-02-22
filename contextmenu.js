@@ -19,7 +19,7 @@
             if (font_size > 30) {
                 font_size = 30;
             }
-            div.setAttribute("style", `position:absolute;z-index:1;top:${rect.top + document.documentElement.scrollTop}px;left:${rect.right - 5 + document.documentElement.scrollLeft}px;font-size:${font_size}px;`);
+            div.setAttribute("style", `position:absolute;z-index:999;top:${rect.top + document.documentElement.scrollTop}px;left:${rect.right - 5 + document.documentElement.scrollLeft}px;font-size:${font_size}px;`);
             href.setAttribute("href", this.getAttribute("href"));
             div.appendChild(href);
             document.body.appendChild(div);

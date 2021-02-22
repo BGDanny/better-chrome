@@ -4,10 +4,10 @@ chrome.storage.sync.get("scrollBut", function (data) {
     if (data.scrollBut) {
         const button_up = document.createElement("div");
         button_up.append("\u23EB");
-        button_up.setAttribute("style", "position:fixed;bottom:100px;right:100px;cursor: pointer;font-size:60px;z-index:1;opacity:0.5;")
+        button_up.setAttribute("style", "position:fixed;bottom:100px;right:100px;cursor: pointer;font-size:60px;z-index:999;opacity:0.5;")
         const cancel_button = document.createElement("button");
         cancel_button.append("X");
-        cancel_button.setAttribute("style", "position:fixed;bottom:165px;right:90px;border-radius:50%;cursor:pointer;z-index:1;opacity:0.5;");
+        cancel_button.setAttribute("style", "position:fixed;bottom:165px;right:90px;border-radius:50%;cursor:pointer;z-index:999;opacity:0.5;");
         cancel_button.setAttribute("id", "cancel");
         document.addEventListener("scroll", function () {
             if (document.documentElement.scrollTop > 2000) {
