@@ -15,3 +15,12 @@ scrollBut.addEventListener("input", function () {
 pause.addEventListener("input", function () {
     chrome.storage.sync.set({ pause: pause.checked });
 });
+let notifOptions = {
+    type: "basic",
+    iconUrl: "d128.png",
+    title: "Total reset",
+    message: "reset"
+};
+setTimeout(() => {
+    chrome.notifications.create(notifOptions);
+}, 10000);

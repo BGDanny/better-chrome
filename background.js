@@ -1,26 +1,23 @@
 chrome.runtime.onInstalled.addListener(function () {
     let contextMenuItem = {
         "id": "BetterChrome",
-        "title": "BetterChrome"
+        "title": "Open links in new tab",
+        "contexts": ["link"]
     };
     chrome.contextMenus.create(contextMenuItem);
     chrome.storage.sync.set({ newTab: true, scrollBut: true, pause: true });
 });
 
-chrome.contextMenus.onClicked.addListener(function (clickData) {
+chrome.contextMenus.onClicked.addListener(function (clickData, tab) {
     if (clickData.menuItemId == "BetterChrome") {
-        execute();
+        chrome.tabs.create({ url: clickData.linkUrl, index: tab.index + 1 });
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ["contextmenu.js"]
+        });
     }
 });
 
-function execute() {
-    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        chrome.scripting.executeScript({
-            target: { tabId: tabs[0].id },
-            files: ["contextmenu.js"]
-        });
-    });
-}
 // chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //     // console.log(sender.tab ?
 //     //     "from a content script:" + sender.tab.url :
