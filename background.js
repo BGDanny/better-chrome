@@ -46,37 +46,36 @@ function execute() {
 //         });
 //     }
 // });
-let tab_playing = [];
-let muted = [];
+let tab_playing;
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tabInfo) {
     if (changeInfo.audible == true) {
-        if (tab_playing.length > 1) {
-            tab_playing.shift();
-        }
-        tab_playing.push(tabId);
-        if (tab_playing.length > 1 && tab_playing[0] !== tab_playing[1]) {
+        if (tab_playing !== undefined) {
             chrome.scripting.executeScript({
-                target: { tabId: tab_playing[0] },
+                target: { tabId: tab_playing },
                 files: ["media.js"]
             });
         }
+        tab_playing = tabId;
     }
 });
 
-chrome.tabs.onActivated.addListener(function (activeInfo) {
-    let muteID = muted.indexOf(activeInfo.tabId);
-    if (muteID >= 0) {
-        chrome.tabs.update(activeInfo.tabId, { muted: false });
-        muted.splice(muteID, 1);
-    }
-})
+// chrome.tabs.onActivated.addListener(function (activeInfo) {
+//     let muteID = muted.indexOf(activeInfo.tabId);
+//     if (muteID >= 0) {
+//         chrome.tabs.update(activeInfo.tabId, { muted: false });
+//         muted.splice(muteID, 1);
+//     }
+// })
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.mute == true) {
-        let muteTabID = tab_playing[0];
+        let muteTabID = sender.tab.id;
         chrome.tabs.update(muteTabID, { muted: true });
-        muted.push(muteTabID);
+    }
+    else if (request.mute == false) {
+        let muteTabID = sender.tab.id;
+        chrome.tabs.update(muteTabID, { muted: false });
     }
     else if (request.script == true) {
         chrome.scripting.executeScript({
@@ -86,10 +85,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 });
 
-chrome.tabs.onRemoved.addListener(function (tabId) {
-    let index = tab_playing.indexOf(tabId);
-    while (index >= 0) {
-        tab_playing.splice(index, 1);
-        index = tab_playing.indexOf(tabId);
-    }
-});
+// chrome.tabs.onRemoved.addListener(function (tabId) {
+//     let index = tab_playing.indexOf(tabId);
+//     while (index >= 0) {
+//         tab_playing.splice(index, 1);
+//         index = tab_playing.indexOf(tabId);
+//     }
+// });
