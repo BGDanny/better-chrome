@@ -4,7 +4,15 @@ A chrome extension to improve user experience and interaction with Google Chrome
 
 ## Features
 
-Open link in new tab; Scroll to top button; Remove google ads; Auto pause a video when another starts to play
+- Open link in new tab 
+    - ⚡ shows up when mouse middle button is pressed to open a link in a new tab
+    - Click on the icon instead of pressing middle button every time
+- Scroll to top button
+    - ⏫ appears when scrolling down a relatively lengthy webpage
+- Remove Google ads
+- Auto pause a video or audio when another starts to play
+    - Mute the previous tab playing audio when no audio or video element is found
+    - Unmute upon revisiting the muted tab
 
 ## Installation
 
