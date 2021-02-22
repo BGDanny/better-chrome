@@ -1,10 +1,8 @@
-(function () {
-    "use strict";
-    // let notifOptions = {
-    //     type: "basic",
-    //     iconUrl: "images/d16.png",
-    //     title: "Total reset",
-    //     message: "reset"
-    // };
-    // chrome.notifications.create(notifOptions);
-})();
+const refresh = document.getElementById("refresh");
+refresh.addEventListener("click", function () {
+    chrome.tabs.query({}, function (tabs) {
+        for (let i = 0; i < tabs.length; i++) {
+            chrome.tabs.reload(tabs[i].id);
+        }
+    });
+})

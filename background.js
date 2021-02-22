@@ -1,22 +1,10 @@
-
-
-
 chrome.runtime.onInstalled.addListener(function () {
-    // tab_playing = [];
-    // netease = [];
     let contextMenuItem = {
         "id": "BetterChrome",
         "title": "BetterChrome"
     };
     chrome.contextMenus.create(contextMenuItem);
-    // chrome.tabs.query({ audible: true }, function (tabs) {
-    //     for (let i = 0; i < tabs.length - 1; i++) {
-    //         chrome.scripting.executeScript({
-    //             target: { tabId: tabs[i].id },
-    //             files: ["media.js"]
-    //         });
-    //     }
-    // });
+    chrome.storage.sync.set({ newTab: true, scrollBut: true, pause: true });
 });
 
 chrome.contextMenus.onClicked.addListener(function (clickData) {
@@ -24,9 +12,7 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
         execute();
     }
 });
-// chrome.commands.onCommand.addListener(function () {
-//     execute();
-// });
+
 function execute() {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         chrome.scripting.executeScript({
@@ -78,17 +64,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.tabs.update(muteTabID, { muted: false });
     }
     else if (request.script == true) {
-        chrome.scripting.executeScript({
-            target: { tabId: sender.tab.id },
-            files: ["contextmenu.js"]
+        chrome.storage.sync.get("newTab", function (data) {
+            if (data.newTab) {
+                chrome.scripting.executeScript({
+                    target: { tabId: sender.tab.id },
+                    files: ["contextmenu.js"]
+                });
+            }
         });
     }
 });
-
-// chrome.tabs.onRemoved.addListener(function (tabId) {
-//     let index = tab_playing.indexOf(tabId);
-//     while (index >= 0) {
-//         tab_playing.splice(index, 1);
-//         index = tab_playing.indexOf(tabId);
-//     }
-// });

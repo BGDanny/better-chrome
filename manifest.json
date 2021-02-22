@@ -51,5 +51,6 @@
             },
             "description": "trigger the content script"
         }
-    }
+    },
+    "options_page": "options.html"
 }
