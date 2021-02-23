@@ -6,6 +6,7 @@ A Chrome extension to improve user experience and interactions with Google Chrom
 
 - Open link in new tab 
     - ⚡ shows up when mouse middle button is pressed to open a link in a new tab
+    - Right click on a link and select the context menu with the extension icon works the same
     - Click on the icon instead of pressing middle button every time
 - Scroll to top button
     - ⏫ appears when scrolling down a relatively lengthy webpage
