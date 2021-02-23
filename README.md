@@ -13,6 +13,9 @@ A chrome extension to improve user experience and interaction with Google Chrome
 - Auto pause a video or audio when another starts to play
     - Mute the previous tab playing audio when no audio or video element is found
     - Unmute upon revisiting the muted tab
+- Add reminder and get notified
+    - Set reminder in "Options" by right clicking the extension icon
+    - Support picking date or time countdown
 
 ## Installation
 
@@ -23,6 +26,10 @@ A chrome extension to improve user experience and interaction with Google Chrome
 
 ![installation](images/readme1.png)
 
+## Note
+
+- Notification has a tolerance of up to 10 seconds
+- Keep the options page open to receive reminder notification
 ## Acknowledgements
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
