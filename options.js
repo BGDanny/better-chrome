@@ -12,10 +12,10 @@ chrome.storage.sync.get("reminder", function (data) {
         content.textContent = data.reminder[i].text;
         let status = document.createElement("td");
         if (!data.reminder[i].pending) {
-            status.textContent = "Resolved";
+            status.innerHTML = "&#x2705Resolved";
         }
         else {
-            status.textContent = "Pending";
+            status.innerHTML = "&#x2B55Pending";
         }
         let action = document.createElement("td");
         let deleteBut = document.createElement("button");
