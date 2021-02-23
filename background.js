@@ -21,7 +21,7 @@ chrome.contextMenus.onClicked.addListener(function (clickData, tab) {
 let tab_playing;
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tabInfo) {
     if (changeInfo.audible == true) {
-        if (tab_playing != undefined && tabID != tab_playing) {
+        if (tab_playing != undefined && tabId != tab_playing) {
             chrome.scripting.executeScript({
                 target: { tabId: tab_playing },
                 files: ["media.js"]
