@@ -11,7 +11,7 @@ chrome.storage.sync.get("reminder", function (data) {
         let content = document.createElement("td");
         content.textContent = data.reminder[i].text;
         let status = document.createElement("td");
-        if (Date.now() > data.reminder[i].timestamp) {
+        if (!data.reminder[i].pending) {
             status.textContent = "Resolved";
         }
         else {
@@ -69,25 +69,6 @@ pause.addEventListener("input", function () {
     chrome.storage.sync.set({ pause: pause.checked });
 });
 
-
-
-// let notifOptions = {
-//     type: "basic",
-//     iconUrl: "images/d128.png",
-//     title: "Total reset",
-//     message: "reset"
-// };
-
-// setTimeout(() => {
-//     chrome.notifications.create(notifOptions);
-// }, 10000);
-// window.addEventListener('beforeunload', (event) => {
-//     // Cancel the event as stated by the standard.
-//     event.preventDefault();
-//     // Older browsers supported custom message
-//     event.returnValue = '';
-// });
-
 // pick time for reminder
 const dateInput = document.getElementById("dateInput");
 const content = document.getElementById("content");
@@ -96,7 +77,15 @@ form1.addEventListener("submit", function () {
     const date1 = new Date(dateInput.value);
     chrome.storage.sync.get({ reminder: [] }, function (data) {
         let remind = data.reminder;
-        remind.push({ timestamp: Date.parse(date1), text: content.value });
+        let futureTimestamp = Date.parse(date1);
+        let pending;
+        if (Date.now() > futureTimestamp) {
+            pending = false;
+        }
+        else {
+            pending = true;
+        }
+        remind.push({ timestamp: futureTimestamp, text: content.value, pending });
         chrome.storage.sync.set({ reminder: remind });
     });
 });
@@ -111,11 +100,12 @@ form2.addEventListener("submit", function () {
     let addTime = day.value * 24 * 3600 * 1000 + hour.value * 3600 * 1000 + minute.value * 60 * 1000;
     chrome.storage.sync.get({ reminder: [] }, function (data) {
         let remind = data.reminder;
-        remind.push({ timestamp: Date.now() + addTime, text: contentCountdown.value });
+        remind.push({ timestamp: Date.now() + addTime, text: contentCountdown.value, pending: true });
         chrome.storage.sync.set({ reminder: remind });
     });
 });
 
+//display one of the two input fields
 radio1.addEventListener("change", function () {
     form2.setAttribute("style", "display:none");
     form1.removeAttribute("style");
@@ -127,4 +117,22 @@ radio2.addEventListener("change", function () {
     chrome.storage.sync.set({ radio2: true, radio1: false });
 });
 
+setInterval(() => {
+    chrome.storage.sync.get({ reminder: [] }, function (data) {
+        let arrayCopy = data.reminder;
+        for (let i = 0; i < arrayCopy.length; i++) {
+            if (arrayCopy[i].timestamp <= Date.now() && arrayCopy[i].pending) {
+                let notifOptions = {
+                    type: "basic",
+                    iconUrl: "images/d128.png",
+                    title: "Reminder",
+                    message: arrayCopy[i].text
+                };
+                chrome.notifications.create(notifOptions);
+                arrayCopy[i].pending = false;
+            }
+        }
+        chrome.storage.sync.set({ reminder: arrayCopy });
+    });
+}, 10000);
 
