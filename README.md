@@ -19,10 +19,10 @@ A chrome extension to improve user experience and interaction with Google Chrome
 
 ## Installation
 
-1. Git clone the repository
+1. Download the lastest compressed file in [Release](https://github.com/BGDanny/better-chrome/releases) and extract
 2. Open [chrome://extensions/](chrome://extensions/) in Google Chrome
 3. Enable developer mode on the top right corner
-4. Click "load unpacked" on the top left and select the cloned repository
+4. Click "load unpacked" on the top left and select the extracted directory
 
 ![installation](images/readme1.png)
 
