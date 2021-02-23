@@ -1,3 +1,4 @@
+// generate table from storage
 const tbody = document.getElementById("tbody");
 chrome.storage.sync.get("reminder", function (data) {
     for (let i = 0; i < data.reminder.length; i++) {
@@ -29,16 +30,7 @@ chrome.storage.sync.get("reminder", function (data) {
                 location.reload();
             });
         });
-        let archiveBut = document.createElement("button");
-        archiveBut.setAttribute("type", "button");
-        archiveBut.setAttribute("class", "btn btn-outline-success");
-        archiveBut.setAttribute("style", "color:black;margin-left:10px;")
-        archiveBut.textContent = "Archive";
-        archiveBut.addEventListener("click", function () {
-
-        });
         action.appendChild(deleteBut);
-        action.appendChild(archiveBut);
         tr.appendChild(th);
         tr.appendChild(date_time);
         tr.appendChild(content);
@@ -47,14 +39,26 @@ chrome.storage.sync.get("reminder", function (data) {
         tbody.appendChild(tr);
     }
 });
+
+// switches
 const newTab = document.getElementById("newTab");
 const scrollBut = document.getElementById("scroll");
 const pause = document.getElementById("pause");
+const radio1 = document.getElementById("radio1");
+const radio2 = document.getElementById("radio2");
 chrome.storage.sync.get(function (data) {
     newTab.checked = data.newTab;
     scrollBut.checked = data.scrollBut;
     pause.checked = data.pause;
-})
+    radio1.checked = data.radio1;
+    radio2.checked = data.radio2;
+    if (radio1.checked) {
+        form2.setAttribute("style", "display:none");
+    }
+    else {
+        form1.setAttribute("style", "display:none");
+    }
+});
 newTab.addEventListener("input", function () {
     chrome.storage.sync.set({ newTab: newTab.checked });
 });
@@ -64,6 +68,9 @@ scrollBut.addEventListener("input", function () {
 pause.addEventListener("input", function () {
     chrome.storage.sync.set({ pause: pause.checked });
 });
+
+
+
 // let notifOptions = {
 //     type: "basic",
 //     iconUrl: "images/d128.png",
@@ -80,18 +87,44 @@ pause.addEventListener("input", function () {
 //     // Older browsers supported custom message
 //     event.returnValue = '';
 // });
+
+// pick time for reminder
 const dateInput = document.getElementById("dateInput");
 const content = document.getElementById("content");
-const submit = document.getElementById("submit");
-submit.addEventListener("click", function () {
-    if (dateInput.value.length > 0 && content.value.length > 0) {
-        const date1 = new Date(dateInput.value);
-        chrome.storage.sync.get({ reminder: [] }, function (data) {
-            let remind = data.reminder;
-            remind.push({ timestamp: Date.parse(date1), text: content.value });
-            chrome.storage.sync.set({ reminder: remind });
-        });
-    }
+const form1 = document.getElementById("form1");
+form1.addEventListener("submit", function () {
+    const date1 = new Date(dateInput.value);
+    chrome.storage.sync.get({ reminder: [] }, function (data) {
+        let remind = data.reminder;
+        remind.push({ timestamp: Date.parse(date1), text: content.value });
+        chrome.storage.sync.set({ reminder: remind });
+    });
+});
+
+// countdown for reminder
+const day = document.getElementById("day");
+const hour = document.getElementById("hour");
+const minute = document.getElementById("minute");
+const contentCountdown = document.getElementById("contentCountdown");
+const form2 = document.getElementById("form2");
+form2.addEventListener("submit", function () {
+    let addTime = day.value * 24 * 3600 * 1000 + hour.value * 3600 * 1000 + minute.value * 60 * 1000;
+    chrome.storage.sync.get({ reminder: [] }, function (data) {
+        let remind = data.reminder;
+        remind.push({ timestamp: Date.now() + addTime, text: contentCountdown.value });
+        chrome.storage.sync.set({ reminder: remind });
+    });
+});
+
+radio1.addEventListener("change", function () {
+    form2.setAttribute("style", "display:none");
+    form1.removeAttribute("style");
+    chrome.storage.sync.set({ radio1: true, radio2: false });
+});
+radio2.addEventListener("change", function () {
+    form1.setAttribute("style", "display:none");
+    form2.removeAttribute("style");
+    chrome.storage.sync.set({ radio2: true, radio1: false });
 });
 
 

@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(function () {
         "contexts": ["link"]
     };
     chrome.contextMenus.create(contextMenuItem);
-    chrome.storage.sync.set({ newTab: true, scrollBut: true, pause: true });
+    chrome.storage.sync.set({ newTab: true, scrollBut: true, pause: true, radio1: true, radio2: false });
 });
 // action when context menu is clicked
 chrome.contextMenus.onClicked.addListener(function (clickData, tab) {
