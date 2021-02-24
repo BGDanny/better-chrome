@@ -34,7 +34,7 @@ Visit [my website](https://bgdanny.github.io/extension) for demonstration
 - Notification has a tolerance of up to 10 seconds
 - Keep the options page open to receive reminder notification
 - Pause all video/audio playing before installation
-- Refresh all pages after installtion (reload shortcut in popup)
+- Refresh all pages after installation (reload shortcut in popup)
 ## Acknowledgements
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
