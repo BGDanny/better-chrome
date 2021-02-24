@@ -1,6 +1,7 @@
 # better-chrome
 
 A Chrome extension to improve user experience and interactions with Google Chrome
+Visit [my website](https://bgdanny.github.io/extension) for demonstration
 
 ## Features
 
