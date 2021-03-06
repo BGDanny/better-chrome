@@ -1,5 +1,5 @@
 
-//a button for scrolling up to the top
+// a button for scrolling up to the top
 chrome.storage.sync.get("scrollBut", function (data) {
     if (data.scrollBut) {
         const button_up = document.createElement("div");
@@ -32,17 +32,39 @@ chrome.storage.sync.get("scrollBut", function (data) {
 
 });
 
-
-//remove google ads
+// remove google ads
 const ads1 = document.getElementById("taw");
 if (ads1 && document.URL.indexOf("google")) {
     ads1.remove();
 }
 
-document.documentElement.addEventListener("auxclick", function (e) {
-    if (e.button === 1) {
-        chrome.runtime.sendMessage({ script: true });
+// validate url
+function isValidHttpUrl(string) {
+    let url;
+    try {
+        url = new URL(string);
+    } catch (_) {
+        return false;
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+
+chrome.storage.sync.get("newTab", function (data) {
+    if (data.newTab) {
+        document.addEventListener("dragend", function (e) {
+            for (let i = e.target; i != null; i = i.parentNode) {
+                if (isValidHttpUrl(i)) {
+                    window.open(i, "_blank");
+                    break;
+                }
+            }
+        });
     }
 });
+
+
+
+
+
 
 
