@@ -117,6 +117,10 @@ radio2.addEventListener("change", function () {
     chrome.storage.sync.set({ radio2: true, radio1: false });
 });
 
+window.addEventListener("focus", function () {
+    location.reload();
+});
+
 setInterval(() => {
     chrome.storage.sync.get({ reminder: [] }, function (data) {
         let arrayCopy = data.reminder;
