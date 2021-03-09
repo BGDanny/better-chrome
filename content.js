@@ -64,8 +64,8 @@ chrome.storage.sync.get("newTab", function (data) {
 
 document.addEventListener("contextmenu", function (e) {
     for (let i = e.target; i != null; i = i.parentNode) {
-        if (i.outerHTML.startsWith("<a")) {
-            chrome.runtime.sendMessage({ context: i.textContent });
+        if (i.tagName == "A") {
+            chrome.storage.sync.set({ contextMenu: i.textContent });
             break;
         }
     }

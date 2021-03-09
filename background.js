@@ -11,10 +11,8 @@ chrome.runtime.onInstalled.addListener(function () {
 chrome.contextMenus.onClicked.addListener(function (clickData, tab) {
     if (clickData.menuItemId == "BetterChrome") {
         chrome.storage.sync.get("contextMenu", function (data) {
-            console.log(data.contextMenu);
             chrome.tabs.create({ url: `https://www.google.com/search?q=${data.contextMenu}`, index: tab.index + 1 });
             chrome.storage.sync.remove("contextMenu", function () {
-
             });
         });
 
@@ -43,20 +41,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         let muteTabID = sender.tab.id;
         chrome.tabs.update(muteTabID, { muted: false });
     }
-    else if (request.context) {
-        console.log(request.context);
-        chrome.storage.sync.set({ contextMenu: request.context });
-    }
-    // else if (request.script == true) {
-    //     chrome.storage.sync.get("newTab", function (data) {
-    //         if (data.newTab) {
-    //             chrome.scripting.executeScript({
-    //                 target: { tabId: sender.tab.id },
-    //                 files: ["contextmenu.js"]
-    //             });
-    //         }
-    //     });
-    // }
 });
 
 
