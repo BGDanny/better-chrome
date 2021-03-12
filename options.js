@@ -117,11 +117,14 @@ radio2.addEventListener("change", function () {
     chrome.storage.sync.set({ radio2: true, radio1: false });
 });
 
-window.addEventListener("focus", function () {
-    location.reload();
-});
+chrome.tabs.getCurrent(function (tabs) {
+    chrome.storage.sync.set({ optionID: tabs.id });
+})
 
-setInterval(() => {
+chrome.runtime.sendMessage({ optionPage: "running" });
+
+// notify user when a reminder reaches the time
+function notify() {
     chrome.storage.sync.get({ reminder: [] }, function (data) {
         let arrayCopy = data.reminder;
         for (let i = 0; i < arrayCopy.length; i++) {
@@ -138,5 +141,10 @@ setInterval(() => {
         }
         chrome.storage.sync.set({ reminder: arrayCopy });
     });
+}
+
+notify();
+setInterval(() => {
+    notify();
 }, 10000);
 

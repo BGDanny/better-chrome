@@ -10,7 +10,7 @@ chrome.storage.sync.get("scrollBut", function (data) {
         cancel_button.setAttribute("style", "position:fixed;bottom:165px;right:90px;border-radius:50%;cursor:pointer;z-index:999;opacity:0.5;");
         cancel_button.setAttribute("id", "cancel");
         document.addEventListener("scroll", function () {
-            if (document.documentElement.scrollTop > 2000) {
+            if (window.scrollY > 2000) {
                 document.documentElement.appendChild(button_up);
                 document.documentElement.appendChild(cancel_button);
             }
