@@ -53,7 +53,7 @@ chrome.storage.sync.get("newTab", function (data) {
     if (data.newTab) {
         document.addEventListener("dragend", function (e) {
             for (let i = e.target; i != null; i = i.parentNode) {
-                if (isValidHttpUrl(i)) {
+                if (i.tagName == "A") {
                     window.open(i, "_blank");
                     break;
                 }

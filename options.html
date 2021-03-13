@@ -58,6 +58,10 @@
             <input class="form-check-input" type="checkbox" id="pause">
         </div>
     </div>
+    <div style="text-align: center;">Refresh all pages in Google Chrome
+        <span style="cursor:pointer;font-size: larger;" id="refresh">&#x1F504</span>
+    </div>
+
     <hr>
     <div id="radios">
         <div class="form-check">
@@ -83,11 +87,13 @@
 
     <form id="form2">
         <input type="text" id="day" size="1" pattern="[0-9]{1,}" style="margin-left: 10%;">
-        <label for="day">day(s)</label>
+        <label for="day">day</label>
         <input type="text" id="hour" size="1" pattern="[0-9]{1,}">
-        <label for="hour">hour(s)</label>
+        <label for="hour">hour</label>
         <input type="text" id="minute" size="1" pattern="[0-9]{1,}">
-        <label for="minute">minute(s)</label>
+        <label for="minute">minute</label>
+        <input type="text" id="second" size="1" pattern="[0-9]{1,}">
+        <label for="second">second</label>
         <br>
         <br>
         <input type="text" name="contentCountdown" id="contentCountdown" placeholder="Enter reminder description"

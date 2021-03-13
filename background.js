@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(function () {
         contexts: ["link"]
     };
     chrome.contextMenus.create(contextMenuItem);
-    chrome.storage.sync.set({ newTab: true, scrollBut: true, pause: true, radio1: true, radio2: false });
+    chrome.storage.sync.set({ newTab: true, scrollBut: true, pause: true, radio1: true, radio2: false, message: 0 });
     chrome.action.setBadgeBackgroundColor({ color: "#FF0000" });
 });
 // action when context menu is clicked
@@ -46,6 +46,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (intervalID != null) {
             clearInterval(intervalID);
         }
+    } else if (request.popup == "running") {
+        sendResponse({ popupText });
+        chrome.action.setBadgeText({ text: "" });
+        chrome.storage.sync.set({ message: 0 }, function () {
+            popupText = [];
+        });
     }
 });
 
@@ -60,12 +66,11 @@ chrome.tabs.onRemoved.addListener(function (tabId) {
                         popupText.push(arrayCopy[i].text);
                     }
                 }
-                console.log("1");
-                if (popupText.length != 0) {
-                    console.log("2");
-                    chrome.action.setBadgeText({ text: popupText.length.toString() });
+                let messageLength = popupText.length;
+                if (messageLength != data.message && messageLength > 0) {
+                    chrome.action.setBadgeText({ text: messageLength.toString() });
                 }
-                chrome.storage.sync.set({ reminder: arrayCopy });
+                chrome.storage.sync.set({ reminder: arrayCopy, message: messageLength });
             }, 10000);
         }
     });

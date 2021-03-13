@@ -94,10 +94,11 @@ form1.addEventListener("submit", function () {
 const day = document.getElementById("day");
 const hour = document.getElementById("hour");
 const minute = document.getElementById("minute");
+const second = document.getElementById("second");
 const contentCountdown = document.getElementById("contentCountdown");
 const form2 = document.getElementById("form2");
 form2.addEventListener("submit", function () {
-    let addTime = day.value * 24 * 3600 * 1000 + hour.value * 3600 * 1000 + minute.value * 60 * 1000;
+    let addTime = day.value * 24 * 3600 * 1000 + hour.value * 3600 * 1000 + minute.value * 60 * 1000 + second.value * 1000;
     chrome.storage.sync.get({ reminder: [] }, function (data) {
         let remind = data.reminder;
         remind.push({ timestamp: Date.now() + addTime, text: contentCountdown.value, pending: true });
@@ -122,6 +123,15 @@ chrome.tabs.getCurrent(function (tabs) {
 })
 
 chrome.runtime.sendMessage({ optionPage: "running" });
+
+const refresh = document.getElementById("refresh");
+refresh.addEventListener("click", function () {
+    chrome.tabs.query({}, function (tabs) {
+        for (let i = 0; i < tabs.length; i++) {
+            chrome.tabs.reload(tabs[i].id);
+        }
+    });
+});
 
 // notify user when a reminder reaches the time
 function notify() {
