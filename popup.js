@@ -17,12 +17,13 @@ chrome.runtime.sendMessage({ popup: "running" }, function (message) {
 });
 
 let sudoku = document.getElementById("sudoku");
-sudoku.addEventListener("click", function () {
+function sudokuPop() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.scripting.executeScript({
             target: { tabId: tabs[0].id },
             files: ["sudoku.js"]
         });
     });
-});
+}
+sudoku.addEventListener("click", sudokuPop);
 

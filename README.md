@@ -7,9 +7,7 @@ A Chrome extension to improve user experience and interactions with Google Chrom
 ## Features
 
 - Open link in new tab 
-    - ⚡ shows up when mouse middle button is pressed to open a link in a new tab
-    - Right click on a link and select the context menu with the extension icon works the same
-    - Click on the icon instead of pressing middle button every time
+    - Drag a hyperlink and release it to open
 - Scroll to top button
     - ⏫ appears when scrolling down a relatively lengthy webpage
 - Remove Google ads
@@ -19,6 +17,9 @@ A Chrome extension to improve user experience and interactions with Google Chrom
 - Add reminder and get notified
     - Set reminder in "Options" by right clicking the extension icon
     - Support picking date or time countdown
+    - Update badgetext when option page is closed
+- Search google for hyperlink text
+    - Right click on a link
 
 ## Installation
 
@@ -34,8 +35,10 @@ A Chrome extension to improve user experience and interactions with Google Chrom
 - Notification has a tolerance of up to 10 seconds
 - Keep the options page open to receive reminder notification
 - Pause all video/audio playing before installation
-- Refresh all pages after installation (reload shortcut in popup)
+- Refresh all pages after installation (reload shortcut in option page)
 ## Acknowledgements
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+Sudoku game made by [Websudoku](https://www.websudoku.com/)
 
