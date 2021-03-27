@@ -2,24 +2,24 @@
 
 A Chrome extension to improve user experience and interactions with Google Chrome
 
-[//]: # "Visit [my website](https://bgdanny.github.io/extension) for demonstration"
+Visit [my website](https://bgdanny.github.io/extension) for demonstration
 
 ## Features
 
-- Open link in new tab 
-    - Drag a hyperlink and release it to open
+- Open link in new tab
+  - Drag a hyperlink and release it to open
 - Scroll to top button
-    - ⏫ appears when scrolling down a relatively lengthy webpage
+  - ⏫ appears when scrolling down a relatively lengthy webpage
 - Remove Google ads
 - Auto pause a video or audio when another starts to play
-    - Mute the previous tab playing audio when no audio or video element is found
-    - Unmute upon revisiting the muted tab
+  - Mute the previous tab playing audio when no audio or video element is found
+  - Unmute upon revisiting the muted tab
 - Add reminder and get notified
-    - Set reminder in "Options" by right clicking the extension icon
-    - Support picking date or time countdown
-    - Update badgetext when option page is closed
+  - Set reminder in "Options" by right clicking the extension icon
+  - Support picking date or time countdown
+  - Update badgetext when option page is closed
 - Search google for hyperlink text
-    - Right click on a link
+  - Right click on a link
 
 ## Installation
 
@@ -36,9 +36,9 @@ A Chrome extension to improve user experience and interactions with Google Chrom
 - Keep the options page open to receive reminder notification
 - Pause all video/audio playing before installation
 - Refresh all pages after installation (reload shortcut in option page)
+
 ## Acknowledgements
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 Sudoku game made by [Websudoku](https://www.websudoku.com/)
-
