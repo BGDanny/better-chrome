@@ -1,3 +1,4 @@
+// TODO: Debug autopause; popup message; drag
 chrome.runtime.onInstalled.addListener(function () {
     let contextMenuItem = {
         id: "BetterChrome",
@@ -42,17 +43,22 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     } else if (request.mute == false) {
         let muteTabID = sender.tab.id;
         chrome.tabs.update(muteTabID, { muted: false });
-    } else if (request.optionPage == "running") {
-        if (intervalID != null) {
-            clearInterval(intervalID);
-        }
+        // } else if (request.optionPage == "running") {
+        //     if (intervalID != null) {
+        //         clearInterval(intervalID);
+        //     }
     } else if (request.popup == "running") {
-        sendResponse({ popupText });
-        chrome.action.setBadgeText({ text: "" });
-        chrome.storage.sync.set({ message: 0 }, function () {
-            popupText = [];
-        });
+        // sendResponse({ popupText });
+        // chrome.action.setBadgeText({ text: "" });
+        // chrome.storage.sync.set({ message: 0 }, function () {
+        //     popupText = [];
+        // });
+        console.log("running");
+        chrome.tabs.query({ currentWindow: true, active: true }).then((tabs) => {
+            sendResponse({ title: tabs[0].title, id: tabs[0].id });
+        }).catch(error => console.log(error));
     }
+    return true;
 });
 
 chrome.tabs.onRemoved.addListener(function (tabId) {

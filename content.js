@@ -71,6 +71,12 @@ document.addEventListener("contextmenu", function (e) {
     }
 });
 
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.title) {
+        document.title = request.title;
+    }
+});
+
 
 
 

@@ -15,11 +15,15 @@
     <script src="popup.js" defer></script>
     <style>
         body {
-            width: 300px;
+            width: 350px;
         }
 
         h3 {
             text-align: center;
+        }
+
+        #changeTitle {
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -28,6 +32,10 @@
     <div style="text-align: center;">
         <button id="sudoku">Feeling bored</button>
     </div>
+    <br>
+    <label for="title">Rename this tab</label>
+    <input type="text" id="title" autofocus>
+    <button id="changeTitle">&#9989</button>
     <h3 id="msg">You have no new message</h3>
     <table id="table1" style="text-align: center;">
 
