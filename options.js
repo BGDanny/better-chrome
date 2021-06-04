@@ -118,11 +118,11 @@ radio2.addEventListener("change", function () {
     chrome.storage.sync.set({ radio2: true, radio1: false });
 });
 
-chrome.tabs.getCurrent(function (tabs) {
-    chrome.storage.sync.set({ optionID: tabs.id });
-})
+// chrome.tabs.getCurrent(function (tabs) {
+//     chrome.storage.sync.set({ optionID: tabs.id });
+// });
 
-chrome.runtime.sendMessage({ optionPage: "running" });
+// chrome.runtime.sendMessage({ optionPage: "running" });
 
 const refresh = document.getElementById("refresh");
 refresh.addEventListener("click", function () {
