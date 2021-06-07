@@ -29,7 +29,9 @@
         "webNavigation",
         "activeTab",
         "tabs",
-        "alarms"
+        "alarms",
+        "unlimitedStorage",
+        "downloads"
     ],
     "host_permissions": [
         "<all_urls>"

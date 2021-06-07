@@ -7,7 +7,7 @@ chrome.storage.sync.get("scrollBut", function (data) {
         button_up.setAttribute("style", "position:fixed;bottom:80px;right:100px;cursor: pointer;font-size:50px;z-index:999;opacity:0.5;")
         const cancel_button = document.createElement("button");
         cancel_button.append("X");
-        cancel_button.setAttribute("style", "position:fixed;bottom:135px;right:90px;border-radius:50%;cursor:pointer;z-index:999;opacity:0.5;");
+        cancel_button.setAttribute("style", "width:30px;height:30px;position:fixed;bottom:135px;right:90px;border-radius:50%;cursor:pointer;z-index:999;opacity:0.5;");
         cancel_button.setAttribute("id", "cancel");
         document.addEventListener("scroll", function () {
             if (window.scrollY > 2000) {
@@ -65,7 +65,7 @@ chrome.storage.sync.get("newTab", function (data) {
 document.addEventListener("contextmenu", function (e) {
     for (let i = e.target; i != null; i = i.parentNode) {
         if (i.tagName == "A") {
-            chrome.storage.sync.set({ contextMenu: i.textContent });
+            chrome.storage.local.set({ contextMenu: i.textContent });
             break;
         }
     }
@@ -77,8 +77,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 });
 
-const iframe = document.getElementsByTagName("iframe");
-console.log(iframe.length);
 
 
 

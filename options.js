@@ -118,12 +118,6 @@ radio2.addEventListener("change", function () {
     chrome.storage.sync.set({ radio2: true, radio1: false });
 });
 
-// chrome.tabs.getCurrent(function (tabs) {
-//     chrome.storage.sync.set({ optionID: tabs.id });
-// });
-
-// chrome.runtime.sendMessage({ optionPage: "running" });
-
 const refresh = document.getElementById("refresh");
 refresh.addEventListener("click", function () {
     chrome.tabs.query({}, function (tabs) {
@@ -133,28 +127,27 @@ refresh.addEventListener("click", function () {
     });
 });
 
-// notify user when a reminder reaches the time
-function notify() {
-    chrome.storage.sync.get({ reminder: [] }, function (data) {
-        let arrayCopy = data.reminder;
-        for (let i = 0; i < arrayCopy.length; i++) {
-            if (arrayCopy[i].timestamp <= Date.now() && arrayCopy[i].pending) {
-                let notifOptions = {
-                    type: "basic",
-                    iconUrl: "images/d128.png",
-                    title: "Reminder",
-                    message: arrayCopy[i].text
-                };
-                chrome.notifications.create(notifOptions);
-                arrayCopy[i].pending = false;
-            }
-        }
-        chrome.storage.sync.set({ reminder: arrayCopy });
-    });
-}
+let focused = true;
+window.addEventListener("focus", () => {
+    focused = true;
+});
+window.addEventListener("blur", () => {
+    focused = false;
+});
 
-notify();
-setInterval(() => {
-    notify();
-}, 10000);
+const port = chrome.runtime.connect({ name: "option" });
+port.onMessage.addListener(msg => {
+    if (msg.text) {
+        let notifOptions = {
+            type: "basic",
+            iconUrl: "images/d128.png",
+            title: "Reminder",
+            message: msg.text
+        };
+        chrome.notifications.create(notifOptions);
+        if (!focused) {
+            location.reload();
+        }
+    }
+});
 

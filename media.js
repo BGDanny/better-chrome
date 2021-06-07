@@ -20,10 +20,6 @@ chrome.storage.sync.get("pause", function (data) {
         if (video.length == 0 && audio.length == 0) {
             chrome.runtime.sendMessage({ mute: true });
             window.addEventListener("focus", unmute);
-            // const iframe_audio = document.getElementsByTagName("iframe")[0].contentWindow.document.body.getElementsByTagName('audio')[0];
-            // iframe_audio.pause();
-            // const iframe_video = document.getElementsByTagName("iframe")[0].contentWindow.document.body.getElementsByTagName('video')[0];
-            // iframe_video.pause();
         }
     }
 });
