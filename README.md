@@ -17,9 +17,10 @@ Visit [my website](https://bgdanny.github.io/extension) for demonstration
 - Add reminder and get notified
   - Set reminder in "Options" by right clicking the extension icon
   - Support picking date or time countdown
-  - Receive notifications from popup when option page is closed
+  - Receive notifications from the popup when the option page is closed
 - Search google for hyperlink text
   - Right click on a link and select the context menu
+- Rename a tab in the popup
 
 ## Installation
 
@@ -32,10 +33,10 @@ Visit [my website](https://bgdanny.github.io/extension) for demonstration
 
 ## Note
 
-- Notification has a tolerance of up to 10 seconds
-- Keep the options page open to receive reminder notification
+- Notification has a tolerance of 1 second from the option page and 6 seconds from the popup 
+- Keep the option page open to receive desktop notifications
 - Pause all video/audio playing before installation
-- Refresh all pages after installation (reload shortcut in option page)
+- Refresh all pages after installation (reload shortcut in the option page)
 
 ## Acknowledgements
 
