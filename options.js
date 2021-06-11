@@ -1,7 +1,17 @@
 // generate table from storage
 const tbody = document.getElementById("tbody");
+function compare(a, b) {
+    if (a.timestamp < b.timestamp) {
+        return -1;
+    }
+    if (a.timestamp > b.timestamp) {
+        return 1;
+    }
+    return 0;
+}
 chrome.storage.sync.get("reminder", function (data) {
-    for (let i = 0; i < data.reminder.length; i++) {
+    let sortedReminder = data.reminder.sort(compare);
+    for (let i = 0; i < sortedReminder.length; i++) {
         let tr = document.createElement("tr");
         let th = document.createElement("th");
         th.setAttribute("scope", "row");
