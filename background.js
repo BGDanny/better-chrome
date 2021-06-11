@@ -80,20 +80,7 @@ chrome.runtime.onConnect.addListener(port => {
                 console.error("Clearing alarm failed");
             }
         });
-        let intervalID = setInterval(() => {
-            chrome.storage.sync.get({ reminder: [] }, function (data) {
-                let arrayCopy = data.reminder;
-                for (let i = 0; i < arrayCopy.length; i++) {
-                    if (arrayCopy[i].timestamp <= Date.now() && arrayCopy[i].pending) {
-                        port.postMessage({ text: arrayCopy[i].text })
-                        arrayCopy[i].pending = false;
-                    }
-                }
-                chrome.storage.sync.set({ reminder: arrayCopy });
-            });
-        }, 1000);
         port.onDisconnect.addListener(() => {
-            clearInterval(intervalID);
             chrome.alarms.create("reminder", { periodInMinutes: 0.1 });
         });
     }

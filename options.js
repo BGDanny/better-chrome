@@ -136,18 +136,28 @@ window.addEventListener("blur", () => {
 });
 
 const port = chrome.runtime.connect({ name: "option" });
-port.onMessage.addListener(msg => {
-    if (msg.text) {
-        let notifOptions = {
-            type: "basic",
-            iconUrl: "images/d128.png",
-            title: "Reminder",
-            message: msg.text
-        };
-        chrome.notifications.create(notifOptions);
-        if (!focused) {
-            location.reload();
+
+let intervalID = setInterval(() => {
+    chrome.storage.sync.get({ reminder: [] }, function (data) {
+        let arrayCopy = data.reminder;
+        for (let i = 0; i < arrayCopy.length; i++) {
+            if (arrayCopy[i].timestamp <= Date.now() && arrayCopy[i].pending) {
+                let notifOptions = {
+                    type: "basic",
+                    iconUrl: "images/d128.png",
+                    title: "Reminder",
+                    message: arrayCopy[i].text
+                };
+                chrome.notifications.create(notifOptions);
+                if (!focused) {
+                    location.reload();
+                }
+                arrayCopy[i].pending = false;
+            }
         }
-    }
-});
+        chrome.storage.sync.set({ reminder: arrayCopy });
+    });
+}, 1000);
+
+
 
